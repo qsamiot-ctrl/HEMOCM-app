@@ -6,8 +6,22 @@ library(bslib)
 library(dplyr)
 library(ggplot2)
 
-# --- 1. PATH CONFIGURATION FOR SHINYAPPS.IO ---
-DOSSIER_IMAGES <- "www"
+# --- 1. PATH CONFIGURATION FOR SHINYAPPS.IO & LOCAL GITHUB ---
+
+# Définition dynamique du chemin vers le dossier www
+DOSSIER_IMAGES <- file.path(getwd(), "www")
+
+# Sécurité Anti-Crash : Vérifie si le dossier www est bien trouvé par RStudio
+if (!dir.exists(DOSSIER_IMAGES)) {
+  stop(paste(
+    "\n========================================================================\n",
+    "ERREUR CRITIQUE : Le dossier 'www' contenant les images est introuvable.\n",
+    "SOLUTION : Dans RStudio, cliquez sur le menu en haut :\n",
+    "-> 'Session' > 'Set Working Directory' > 'To Source File Location'\n",
+    "Puis relancez l'application en cliquant sur 'Run App'.\n",
+    "========================================================================\n"
+  ))
+}
 
 addResourcePath("assets", DOSSIER_IMAGES)
 
@@ -425,16 +439,6 @@ server <- function(input, output, session) {
       } else {
         type_q <- choix_cat
         patho <- safe_sample(noms_pathos, 1)
-        
-        # --- CORRECTION REDONDANCE (Généralisation) ---
-        if (type_q == "cyto" && grepl("t\\(|inv\\(|del\\(|Ph\\+", patho, ignore.case = TRUE)) {
-          type_q <- "mut"
-        }
-        if (type_q == "mut" && grepl("mutated", patho, ignore.case = TRUE)) {
-          type_q <- "cd"
-        }
-        # ----------------------------------------------
-        
         q_id <- paste("PATHO", patho, type_q, sep="_")
         
         if (!(q_id %in% asked)) {
