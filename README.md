@@ -1,4 +1,4 @@
-**HEMOCM** is an interactive, web-based educational application built with the R Shiny framework. Designed to teach complex hematological diagnostics (cytology, flow cytometry, cytogenetics, and molecular biology), the application utilizes a retro DOOM-style First-Person Shooter (FPS) interface to maximize learner engagement and optimize memory retention.
+**HEMOCM** is an interactive, web-based educational application built with the R Shiny framework. Designed to teach complex hematological diagnostics (cytology, flow cytometry, cytogenetics, and molecular biology), the application utilizes a retro style First-Person Shooter (FPS) interface to maximize learner engagement and optimize memory retention.
 
 ## 🧬 Scientific Background
 This application was developed as a pedagogical tool directly applying **Cognitive Load Theory**:
